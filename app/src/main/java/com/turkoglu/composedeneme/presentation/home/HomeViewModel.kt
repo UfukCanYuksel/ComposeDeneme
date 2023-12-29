@@ -62,33 +62,7 @@ class HomeViewModel @Inject constructor(
     private val _warState = mutableStateOf<Flow<PagingData<Movie>>>(emptyFlow())
     val warState : State<Flow<PagingData<Movie>>> = _warState
 
-
-/*
-    private val _state = mutableStateOf(HomeScreenState())
-    val state: State<HomeScreenState> = _state
-
-    private val _stateTopRated = mutableStateOf(HomeScreenStateTopRated())
-    val stateTopRated: State<HomeScreenStateTopRated> = _stateTopRated
-
-    private val _stateNowPlaying = mutableStateOf(HomeScreenStateTopRated())
-    val stateNowPlaying: State<HomeScreenStateTopRated> = _stateNowPlaying
-
-    private val _stateUpcoming = mutableStateOf(HomeScreenStateTopRated())
-    val stateUpcoming: State<HomeScreenStateTopRated> = _stateUpcoming
-
-
- */
-    private val page = 1
-
     init {
-        /*
-        getMovies()
-        getTopRatedMovies()
-        getNowPlayingMovies()
-        getUpcomingMovies()
-
-         */
-
         getPopularMovies()
         getTopRatedMovies()
         getNowPlayingMovies()
@@ -100,12 +74,10 @@ class HomeViewModel @Inject constructor(
         getFantasyMovies()
         getHistoryMovies()
         getWarMovies()
-
     }
 
     fun getPopularMovies(){
         viewModelScope.launch{
-
             _popularState.value =movieRepository.getMovies(useIncreasingPage).cachedIn(viewModelScope)
         }
     }

@@ -38,19 +38,18 @@ import javax.inject.Inject
 class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
     fun getMovies(useIncreasingPage: Boolean): Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false , pageSize = 20) ,
+            config = PagingConfig(enablePlaceholders = false , pageSize = 100) ,
             pagingSourceFactory = {
                 if (useIncreasingPage){
                     PagingPopularMoviesHome(api)
                 }else PagingPopularMovies(api)
-
             }
         ).flow
     }
 
     fun getTopRatedMovies(useIncreasingPage: Boolean): Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false , pageSize = 20) ,
+            config = PagingConfig(enablePlaceholders = false , pageSize = 100) ,
             pagingSourceFactory = {
                if (useIncreasingPage){
                    PagingTopRatedMoviesHome(api)
@@ -61,7 +60,7 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
 
     fun getNowPlayingMovies(useIncreasingPage: Boolean): Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false , pageSize = 20) ,
+            config = PagingConfig(enablePlaceholders = false , pageSize = 100) ,
             pagingSourceFactory = {
                 if (useIncreasingPage){
                     PagingNowPlayingHome(api)
@@ -72,7 +71,7 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
 
     fun getUpcomingMovies(useIncreasingPage: Boolean): Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false , pageSize = 20) ,
+            config = PagingConfig(enablePlaceholders = false , pageSize = 100) ,
             pagingSourceFactory = {
                 if (useIncreasingPage){
                     PagingUpComingMoviesHome(api)
@@ -87,7 +86,7 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
 
     fun getActionMovies(useIncreasingPage: Boolean): Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false , pageSize = 20) ,
+            config = PagingConfig(enablePlaceholders = false , pageSize = 100) ,
             pagingSourceFactory = {
                 if (useIncreasingPage){
                     PagingActionMoviesHome(api)
@@ -98,7 +97,7 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
 
     fun getAnimationMovies(useIncreasingPage: Boolean):Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false , pageSize = 20) ,
+            config = PagingConfig(enablePlaceholders = false , pageSize = 100) ,
             pagingSourceFactory = {
                 if (useIncreasingPage){
                     PagingAnimationMoviesHome(api)
@@ -109,7 +108,7 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
 
     fun getComedyMovies(useIncreasingPage: Boolean): Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false , pageSize = 20) ,
+            config = PagingConfig(enablePlaceholders = false , pageSize = 100) ,
             pagingSourceFactory = {
                 if (useIncreasingPage) {
                     PagingComedyMoviesHome(api)
@@ -120,7 +119,7 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
 
     fun getDramaMovies(useIncreasingPage: Boolean): Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false , pageSize = 20) ,
+            config = PagingConfig(enablePlaceholders = false , pageSize = 100) ,
             pagingSourceFactory = {
                 if (useIncreasingPage){
                     PagingDramaMoviesHome(api)
@@ -131,7 +130,7 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
 
     fun getFantasyMovies(useIncreasingPage: Boolean):Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders =  false , pageSize = 20) ,
+            config = PagingConfig(enablePlaceholders =  false , pageSize = 100) ,
             pagingSourceFactory = {
                 if (useIncreasingPage){
                     PagingFantasyMoviesHome(api)
@@ -142,7 +141,7 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
 
     fun getHistoryMovies(useIncreasingPage: Boolean): Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false , pageSize = 20) ,
+            config = PagingConfig(enablePlaceholders = false , pageSize = 100) ,
             pagingSourceFactory = {
                 if (useIncreasingPage) {
                     PagingHistoryMoviesHome(api)
@@ -153,7 +152,7 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
 
     fun getWarMovies(useIncreasingPage: Boolean): Flow<PagingData<Movie>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false , pageSize = 20) ,
+            config = PagingConfig(enablePlaceholders = false , pageSize = 100) ,
             pagingSourceFactory = {
                 if (useIncreasingPage){
                     PagingWarMoviesHome(api)

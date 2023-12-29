@@ -18,26 +18,26 @@ interface MovieAPI {
 
     @GET("movie/popular")
     suspend fun getPopularMovies(
-        @Query("page") page : Int,
+        @Query("page") page : Int= DEFAULT_PAGE ,
         @Query("api_key") apiKey: String = API_KEY
     ): MoviesDto
 
 
     @GET("movie/top_rated")
     suspend fun getTopRatedMovies(
-        @Query("page") page : Int ,
+        @Query("page") page : Int= DEFAULT_PAGE  ,
         @Query("api_key") apiKey: String = API_KEY
     ): MoviesDto
 
     @GET("movie/now_playing")
     suspend fun getNowPlayingMovies(
-        @Query("page") page : Int ,
+        @Query("page") page : Int = DEFAULT_PAGE ,
         @Query("api_key") apiKey: String = API_KEY
     ): MoviesDto
 
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(
-        @Query("page") page : Int ,
+        @Query("page") page : Int= DEFAULT_PAGE  ,
         @Query("api_key") apiKey: String = API_KEY
     ): MoviesDto
 
@@ -45,7 +45,7 @@ interface MovieAPI {
     suspend fun getGenresMovies(
         @Query("api_key") apiKey :String = API_KEY ,
         @Query("with_genres") genre : Int ,
-        @Query("page") page :Int
+        @Query("page") page :Int= DEFAULT_PAGE
     ) : MoviesDto
 
 

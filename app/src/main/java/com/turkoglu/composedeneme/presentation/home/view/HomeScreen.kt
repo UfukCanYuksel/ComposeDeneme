@@ -2,10 +2,12 @@ package com.turkoglu.composedeneme.presentation.home.view
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,8 +19,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -42,13 +46,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToDetail: (Movie) -> Unit
 ) {
-    /*
-    val state = viewModel.state.value
-    val stateTopRated = viewModel.stateTopRated.value
-    val stateNowPlaying = viewModel.stateNowPlaying.value
-    val stateUpcoming = viewModel.stateUpcoming.value
 
-     */
     val popularMovies = viewModel.popularState.value.collectAsLazyPagingItems()
     val topratedMovies = viewModel.topretedState.value.collectAsLazyPagingItems()
     val nowPlayingMovies = viewModel.notPlayingState.value.collectAsLazyPagingItems()
@@ -61,11 +59,10 @@ fun HomeScreen(
     val historyMovies = viewModel.historyState.value.collectAsLazyPagingItems()
     val warMovie = viewModel.warState.value.collectAsLazyPagingItems()
 
-    /*
+
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-
         LazyColumn {
             //-------------------TopRated-----------------------
             item(content = {
@@ -98,7 +95,7 @@ fun HomeScreen(
                     LazyRow(content = {
 
                         itemsIndexed(
-                            stateTopRated.movies,
+                            topratedMovies.itemSnapshotList.items,
                             key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
                             MovieListItem(
                                 modifier = modifier
@@ -148,7 +145,7 @@ fun HomeScreen(
                         ) {
 
                         itemsIndexed(
-                            state.movies,
+                            popularMovies.itemSnapshotList.items,
                             key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
                             MovieListItem(
                                 modifier = modifier
@@ -200,7 +197,7 @@ fun HomeScreen(
                         ) {
 
                         itemsIndexed(
-                            stateNowPlaying.movies,
+                            nowPlayingMovies.itemSnapshotList.items,
                             key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
                             MovieListItem(
                                 modifier = modifier
@@ -214,6 +211,7 @@ fun HomeScreen(
                 }
                 Spacer(modifier = modifier.height(10.dp))
             }
+
             //------------Upcoming-----------------
 
             item {
@@ -252,7 +250,368 @@ fun HomeScreen(
                         ) {
 
                         itemsIndexed(
-                            stateUpcoming.movies,
+                            upCommingMovies.itemSnapshotList.items,
+                            key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
+                            MovieListItem(
+                                modifier = modifier
+                                    .height(200.dp)
+                                    .width(180.dp),
+                                movie = movie,
+                                onMovieClick = {navigateToDetail(movie)}
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = modifier.height(10.dp))
+            }
+            //---Action
+            item {
+                Spacer(modifier = modifier.height(10.dp))
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = "Action", color = Color.White, fontSize = 18.sp)
+
+                    Text(
+                        text = "View All",
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        modifier = modifier.clickable {
+                            navController.navigate("ViewAll/${"action"}")
+                        })
+
+                }
+            }
+
+            item {
+                Spacer(modifier = modifier.height(5.dp))
+
+                Box(
+                    modifier
+                        .fillMaxWidth()
+                        .height(210.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    LazyHorizontalGrid(
+                        rows = GridCells.Fixed(1),
+
+                        ) {
+
+                        itemsIndexed(
+                            actionMovies.itemSnapshotList.items,
+                            key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
+                            MovieListItem(
+                                modifier = modifier
+                                    .height(200.dp)
+                                    .width(180.dp),
+                                movie = movie,
+                                onMovieClick = {navigateToDetail(movie)}
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = modifier.height(10.dp))
+            }
+            //---Animation
+            item {
+                Spacer(modifier = modifier.height(10.dp))
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = "Animation", color = Color.White, fontSize = 18.sp)
+
+                    Text(
+                        text = "View All",
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        modifier = modifier.clickable {
+                            navController.navigate("ViewAll/${"animation"}")
+                        })
+
+                }
+            }
+
+            item {
+                Spacer(modifier = modifier.height(5.dp))
+
+                Box(
+                    modifier
+                        .fillMaxWidth()
+                        .height(210.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    LazyHorizontalGrid(
+                        rows = GridCells.Fixed(1),
+
+                        ) {
+
+                        itemsIndexed(
+                            animationMovies.itemSnapshotList.items,
+                            key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
+                            MovieListItem(
+                                modifier = modifier
+                                    .height(200.dp)
+                                    .width(180.dp),
+                                movie = movie,
+                                onMovieClick = {navigateToDetail(movie)}
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = modifier.height(10.dp))
+            }
+            //---Comedy
+            item {
+                Spacer(modifier = modifier.height(10.dp))
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = "Comedy", color = Color.White, fontSize = 18.sp)
+
+                    Text(
+                        text = "View All",
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        modifier = modifier.clickable {
+                            navController.navigate("ViewAll/${"comedy"}")
+                        })
+
+                }
+            }
+
+            item {
+                Spacer(modifier = modifier.height(5.dp))
+
+                Box(
+                    modifier
+                        .fillMaxWidth()
+                        .height(210.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    LazyHorizontalGrid(
+                        rows = GridCells.Fixed(1),
+
+                        ) {
+
+                        itemsIndexed(
+                            comedyMovies.itemSnapshotList.items,
+                            key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
+                            MovieListItem(
+                                modifier = modifier
+                                    .height(200.dp)
+                                    .width(180.dp),
+                                movie = movie,
+                                onMovieClick = {navigateToDetail(movie)}
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = modifier.height(10.dp))
+            }
+
+            //---Drama
+            item {
+                Spacer(modifier = modifier.height(10.dp))
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = "Drama", color = Color.White, fontSize = 18.sp)
+
+                    Text(
+                        text = "View All",
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        modifier = modifier.clickable {
+                            navController.navigate("ViewAll/${"drama"}")
+                        })
+
+                }
+            }
+
+            item {
+                Spacer(modifier = modifier.height(5.dp))
+
+                Box(
+                    modifier
+                        .fillMaxWidth()
+                        .height(210.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    LazyHorizontalGrid(
+                        rows = GridCells.Fixed(1),
+
+                        ) {
+
+                        itemsIndexed(
+                            dramaMovies.itemSnapshotList.items,
+                            key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
+                            MovieListItem(
+                                modifier = modifier
+                                    .height(200.dp)
+                                    .width(180.dp),
+                                movie = movie,
+                                onMovieClick = {navigateToDetail(movie)}
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = modifier.height(10.dp))
+            }
+
+            //---Fantasy
+            item {
+                Spacer(modifier = modifier.height(10.dp))
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = "Fantasy", color = Color.White, fontSize = 18.sp)
+
+                    Text(
+                        text = "View All",
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        modifier = modifier.clickable {
+                            navController.navigate("ViewAll/${"fantasy"}")
+                        })
+
+                }
+            }
+
+            item {
+                Spacer(modifier = modifier.height(5.dp))
+
+                Box(
+                    modifier
+                        .fillMaxWidth()
+                        .height(210.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    LazyHorizontalGrid(
+                        rows = GridCells.Fixed(1),
+
+                        ) {
+
+                        itemsIndexed(
+                            fantasyMovies.itemSnapshotList.items,
+                            key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
+                            MovieListItem(
+                                modifier = modifier
+                                    .height(200.dp)
+                                    .width(180.dp),
+                                movie = movie,
+                                onMovieClick = {navigateToDetail(movie)}
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = modifier.height(10.dp))
+            }
+
+            //---History
+            item {
+                Spacer(modifier = modifier.height(10.dp))
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = "History", color = Color.White, fontSize = 18.sp)
+
+                    Text(
+                        text = "View All",
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        modifier = modifier.clickable {
+                            navController.navigate("ViewAll/${"history"}")
+                        })
+
+                }
+            }
+
+            item {
+                Spacer(modifier = modifier.height(5.dp))
+
+                Box(
+                    modifier
+                        .fillMaxWidth()
+                        .height(210.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    LazyHorizontalGrid(
+                        rows = GridCells.Fixed(1),
+
+                        ) {
+
+                        itemsIndexed(
+                            historyMovies.itemSnapshotList.items,
+                            key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
+                            MovieListItem(
+                                modifier = modifier
+                                    .height(200.dp)
+                                    .width(180.dp),
+                                movie = movie,
+                                onMovieClick = {navigateToDetail(movie)}
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = modifier.height(10.dp))
+            }
+
+            //---War
+            item {
+                Spacer(modifier = modifier.height(10.dp))
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = "War", color = Color.White, fontSize = 18.sp)
+
+                    Text(
+                        text = "View All",
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        modifier = modifier.clickable {
+                            navController.navigate("ViewAll/${"war"}")
+                        })
+
+                }
+            }
+
+            item {
+                Spacer(modifier = modifier.height(5.dp))
+
+                Box(
+                    modifier
+                        .fillMaxWidth()
+                        .height(210.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    LazyHorizontalGrid(
+                        rows = GridCells.Fixed(1),
+
+                        ) {
+
+                        itemsIndexed(
+                            warMovie.itemSnapshotList.items,
                             key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
                             MovieListItem(
                                 modifier = modifier
@@ -270,25 +629,4 @@ fun HomeScreen(
         }
     }
 
-
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = MaterialTheme.colors.background)
-    ) {
-        
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            itemsIndexed(state.movies, key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
-                MovieListItem(movie = movie, onMovieClick = {})
-                println(movie.imageUrl)
-            }
-
-
-        }
-    }*/
 }
