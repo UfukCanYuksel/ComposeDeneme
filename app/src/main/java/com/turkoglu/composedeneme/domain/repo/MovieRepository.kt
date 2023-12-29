@@ -11,7 +11,7 @@ interface MovieRepository {
     suspend fun getTopRatedMovies(): Flow<PagingData<Movie>>
     suspend fun getNowPlayingMovies(): Flow<PagingData<Movie>>
     suspend fun getUpcomingMovies(): Flow<PagingData<Movie>>
-    suspend fun getMovieDetail(imdbId:String): MovieDetailDto
+    //suspend fun getMovieDetail(imdbId:String): MovieDetailDto
     suspend fun getActionMovies() : Flow<PagingData<Movie>>
     suspend fun getAnimationMovies() : Flow<PagingData<Movie>>
     suspend fun getComedyMovies() : Flow<PagingData<Movie>>

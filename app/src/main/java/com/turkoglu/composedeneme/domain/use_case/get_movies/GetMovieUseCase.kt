@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
 import javax.inject.Inject
-
+/*
 class GetMovieUseCase @Inject constructor(private val repository: MovieRepository) {
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
@@ -32,3 +32,5 @@ class GetMovieUseCase @Inject constructor(private val repository: MovieRepositor
 
     }
 }
+
+ */

@@ -11,10 +11,6 @@ import androidx.paging.cachedIn
 import com.turkoglu.composedeneme.data.repo.MovieRepositoryImpl
 import com.turkoglu.composedeneme.domain.model.Movie
 import com.turkoglu.composedeneme.domain.repo.MovieRepository
-import com.turkoglu.composedeneme.domain.use_case.get_movies.GetMovieUseCase
-import com.turkoglu.composedeneme.domain.use_case.get_now_playing.GetNowPlayingUseCase
-import com.turkoglu.composedeneme.domain.use_case.get_toprated.GetTopRatedUseCase
-import com.turkoglu.composedeneme.domain.use_case.get_upcoming.GetUpcomingUseCase
 import com.turkoglu.composedeneme.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -27,13 +23,9 @@ import javax.inject.Inject
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val movieRepository: MovieRepositoryImpl ,
-    private val getMovieUseCase: GetMovieUseCase,
-    private val getTopRatedUseCase: GetTopRatedUseCase,
-    private val getNowPlayingUseCase: GetNowPlayingUseCase,
-    private val getUpcomingUseCase: GetUpcomingUseCase,
-
+    private val movieRepository: MovieRepositoryImpl
 ) : ViewModel() {
+
 
     val useIncreasingPage = true
 
@@ -96,6 +88,7 @@ class HomeViewModel @Inject constructor(
         getUpcomingMovies()
 
          */
+
         getPopularMovies()
         getTopRatedMovies()
         getNowPlayingMovies()
@@ -112,6 +105,7 @@ class HomeViewModel @Inject constructor(
 
     fun getPopularMovies(){
         viewModelScope.launch{
+
             _popularState.value =movieRepository.getMovies(useIncreasingPage).cachedIn(viewModelScope)
         }
     }

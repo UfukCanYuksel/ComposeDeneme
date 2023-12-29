@@ -35,7 +35,7 @@ import kotlinx.coroutines.flow.Flow
 
 import javax.inject.Inject
 
-class MovieRepositoryImpl @Inject constructor(private val useIncreasingPage: Boolean,private val api : MovieAPI){
+class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
     fun getMovies(useIncreasingPage: Boolean): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false , pageSize = 20) ,

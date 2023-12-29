@@ -26,10 +26,14 @@ object AppModule {
             .create(MovieAPI::class.java)
     }
 
+    /*
     @Provides
     @Singleton
-    fun provideMovieRepository ( api: MovieAPI ) : MovieRepository {
+    fun provideMovieRepository ( api: MovieAPI ) : MovieRepositoryImpl {
         return MovieRepositoryImpl(api)
     }
+     */
+
+
 
 }
