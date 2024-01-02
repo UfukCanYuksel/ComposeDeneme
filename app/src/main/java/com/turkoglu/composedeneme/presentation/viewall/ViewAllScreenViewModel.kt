@@ -15,81 +15,85 @@ import com.turkoglu.composedeneme.domain.model.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @HiltViewModel
 class ViewAllScreenViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle ,
+    savedStateHandle: SavedStateHandle ,
     private val movieRepository: MovieRepositoryImpl
     ):ViewModel() {
-
-    private val _state = mutableStateOf<Flow<PagingData<Movie>>>(emptyFlow())
-    val state : State<Flow<PagingData<Movie>>> = _state
-    val useIncreasingPage = false
+    private val _warState = mutableStateOf<Flow<PagingData<Movie>>>(emptyFlow())
+    val warState : State<Flow<PagingData<Movie>>> = _warState
+    private val useIncreasingPage = false
 
     private val _nameState = mutableStateOf(ViewAllState())
     val nameState : State<ViewAllState> = _nameState
 
     init {
-        var selectedType=savedStateHandle.get<String>("selectedType") ?: ""
+        val selectedType=savedStateHandle.get<String>("selectedType") ?: ""
         getMovies(selectedType)
         nameState.value.movies = selectedType
     }
 
-
-
     private fun getMovies(selectedType : String){
-        if (selectedType=="popular"){
+        when (selectedType) {
+            "Popular" -> {
                 viewModelScope.launch{
-                    _state.value =movieRepository.getMovies(useIncreasingPage).cachedIn(viewModelScope)
+                    _warState.value =movieRepository.getMovies(useIncreasingPage).cachedIn(viewModelScope)
                 }
-        } else if(selectedType=="top_rated"){
+            }
+            "Top Rated" -> {
                 viewModelScope.launch {
-                    _state.value = movieRepository.getTopRatedMovies(useIncreasingPage).cachedIn(viewModelScope)
+                    _warState.value = movieRepository.getTopRatedMovies(useIncreasingPage).cachedIn(viewModelScope)
                 }
-        }else if(selectedType=="now_playing"){
+            }
+            "Now Playing" -> {
                 viewModelScope.launch {
-                    _state.value = movieRepository.getNowPlayingMovies(useIncreasingPage).cachedIn(viewModelScope)
+                    _warState.value = movieRepository.getNowPlayingMovies(useIncreasingPage).cachedIn(viewModelScope)
                 }
-        }else  if(selectedType == "upcoming"){
+            }
+            "Upcoming" -> {
                 viewModelScope.launch {
-                    _state.value = movieRepository.getUpcomingMovies(useIncreasingPage).cachedIn(viewModelScope)
+                    _warState.value = movieRepository.getUpcomingMovies(useIncreasingPage).cachedIn(viewModelScope)
                 }
-        }else if(selectedType == "action"){
+            }
+            "Action" -> {
                 viewModelScope.launch {
-                    _state.value = movieRepository.getActionMovies(useIncreasingPage).cachedIn(viewModelScope)
+                    _warState.value = movieRepository.getActionMovies(useIncreasingPage).cachedIn(viewModelScope)
                 }
-        }else if(selectedType == "animation"){
-
+            }
+            "Animation" -> {
                 viewModelScope.launch {
-                    _state.value = movieRepository.getAnimationMovies(useIncreasingPage).cachedIn(viewModelScope)
+                    _warState.value = movieRepository.getAnimationMovies(useIncreasingPage).cachedIn(viewModelScope)
                 }
-        }else if(selectedType == "comedy"){
-
+            }
+            "Comedy" -> {
                 viewModelScope.launch {
-                    _state.value = movieRepository.getComedyMovies(useIncreasingPage).cachedIn(viewModelScope)
+                    _warState.value = movieRepository.getComedyMovies(useIncreasingPage).cachedIn(viewModelScope)
                 }
-        }else if (selectedType == "drama"){
-
+            }
+            "Drama" ->{
+                viewModelScope.launch{
+                    _warState.value = movieRepository.getDramaMovies(useIncreasingPage).cachedIn(viewModelScope)
+                }
+            }
+            "Fantasy" -> {
                 viewModelScope.launch {
-                    _state.value = movieRepository.getDramaMovies(useIncreasingPage).cachedIn(viewModelScope)
+                    _warState.value = movieRepository.getFantasyMovies(useIncreasingPage).cachedIn(viewModelScope)
                 }
-        }else if (selectedType == "fantasy"){
+            }
+            "History" -> {
                 viewModelScope.launch {
-                    _state.value = movieRepository.getFantasyMovies(useIncreasingPage).cachedIn(viewModelScope)
+                    _warState.value = movieRepository.getHistoryMovies(useIncreasingPage).cachedIn(viewModelScope)
                 }
-        }else if (selectedType == "history"){
+            }
+            "War" -> {
                 viewModelScope.launch {
-                    _state.value = movieRepository.getHistoryMovies(useIncreasingPage).cachedIn(viewModelScope)
+                    _warState.value = movieRepository.getWarMovies(useIncreasingPage).cachedIn(viewModelScope)
                 }
-        }else{
-                viewModelScope.launch {
-                    _state.value = movieRepository.getWarMovies(useIncreasingPage).cachedIn(viewModelScope)
-                }
+            }
         }
     }
 }

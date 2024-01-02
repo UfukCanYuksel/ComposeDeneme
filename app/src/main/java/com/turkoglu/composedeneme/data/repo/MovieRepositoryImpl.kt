@@ -3,7 +3,6 @@ package com.turkoglu.composedeneme.data.repo
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.PagingSource
 import com.turkoglu.composedeneme.data.paging.PagingActionMovies
 import com.turkoglu.composedeneme.data.paging.PagingActionMoviesHome
 import com.turkoglu.composedeneme.data.paging.PagingAnimationMovies
@@ -28,9 +27,7 @@ import com.turkoglu.composedeneme.data.paging.PagingWarMovies
 import com.turkoglu.composedeneme.data.paging.PagingWarMoviesHome
 import com.turkoglu.composedeneme.data.remote.MovieAPI
 import com.turkoglu.composedeneme.data.remote.dto.MovieDetailDto
-import com.turkoglu.composedeneme.data.remote.dto.MoviesDto
 import com.turkoglu.composedeneme.domain.model.Movie
-import com.turkoglu.composedeneme.domain.repo.MovieRepository
 import kotlinx.coroutines.flow.Flow
 
 import javax.inject.Inject

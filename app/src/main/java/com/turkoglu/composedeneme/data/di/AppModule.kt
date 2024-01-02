@@ -1,8 +1,6 @@
 package com.turkoglu.composedeneme.data.di
 
 import com.turkoglu.composedeneme.data.remote.MovieAPI
-import com.turkoglu.composedeneme.data.repo.MovieRepositoryImpl
-import com.turkoglu.composedeneme.domain.repo.MovieRepository
 import com.turkoglu.composedeneme.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides

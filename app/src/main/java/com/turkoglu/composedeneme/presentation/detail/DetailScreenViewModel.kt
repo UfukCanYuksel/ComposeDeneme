@@ -7,11 +7,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.turkoglu.composedeneme.domain.use_case.get_movie_detail.GetMovieDetailUseCase
+import com.turkoglu.composedeneme.data.remote.dto.MovieDetailDto
+import com.turkoglu.composedeneme.data.repo.MovieRepositoryImpl
+import com.turkoglu.composedeneme.domain.use_case.GetMovieDetailUseCase
 import com.turkoglu.composedeneme.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
@@ -20,8 +23,6 @@ class DetailScreenViewModel @Inject constructor(
     private val getDetailUseCase : GetMovieDetailUseCase,
     private val savedStateHandle: SavedStateHandle
 ):ViewModel(){
-
-
     private val _state = mutableStateOf(DetailState())
     val state: State<DetailState> = _state
 
@@ -37,7 +38,7 @@ class DetailScreenViewModel @Inject constructor(
                 is Resource.Success -> {
                     _state.value= DetailState(title = it.data!!.title, overview = it.data.overview, genres = it.data.genres,
                         imdbId = it.data.imdbId, popularity = it.data.popularity, posterPath = it.data
-                        .posterPath, releaseDate = it.data.releaseDate, revenue = it.data.revenue, voteAverage = it.data.voteAverage)
+                            .posterPath, releaseDate = it.data.releaseDate, revenue = it.data.revenue, voteAverage = it.data.voteAverage)
                 }
 
                 is Resource.Error -> {
@@ -49,10 +50,8 @@ class DetailScreenViewModel @Inject constructor(
                     //_state.value = HomeScreenState(loading = true)
                 }
             }
-
-
-
         }.launchIn(viewModelScope)
     }
+
 
 }

@@ -12,7 +12,6 @@ class PagingActionMovies @Inject constructor(private val api: MovieAPI) : Paging
     override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
         return state.anchorPosition
     }
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         return  try {
             val nextPage = params.key ?: 1
