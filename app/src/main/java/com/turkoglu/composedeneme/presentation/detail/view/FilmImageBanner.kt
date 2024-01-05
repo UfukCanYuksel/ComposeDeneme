@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.turkoglu.composedeneme.presentation.detail.DetailScreenViewModel
 import com.turkoglu.composedeneme.presentation.ui.primaryDark
@@ -31,7 +32,8 @@ import com.turkoglu.composedeneme.presentation.ui.primaryPink
 @Composable
 fun FilmImageBanner(
     rating: Float,
-    viewModel: DetailScreenViewModel
+    viewModel: DetailScreenViewModel,
+    navController: NavController
 
 ) {
 
@@ -58,7 +60,7 @@ fun FilmImageBanner(
                 )
 
                 //bu box pembelik koyuyo fotoğrafa
-                Box(
+                /*Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(
@@ -70,6 +72,7 @@ fun FilmImageBanner(
                             )
                         )
                 )
+                 */
                 // istersen kaldır istersen dursun
 
 
@@ -89,11 +92,13 @@ fun FilmImageBanner(
             .statusBarsPadding()
             .padding(horizontal = 10.dp)
     ) {
-        CircularBackButtons(
-            onClick = {
+        CircularBackButtons(onClick = { navController.popBackStack()})
+        FragmanButton{
+            //youtube
+        }
+        CircularFavoriteButtons(isLiked = true){
+            //favorilere ekleme
 
-                //rememberNavController().getBackStackEntry("Home")
-            }
-        )
+        }
     }
 }

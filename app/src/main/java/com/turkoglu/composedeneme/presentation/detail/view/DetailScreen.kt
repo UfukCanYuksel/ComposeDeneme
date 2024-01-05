@@ -53,11 +53,12 @@ fun DetailScreen(
         )
         FilmImageBanner(
             rating = state.voteAverage.toFloat(),
-            viewModel = viewModel
+            viewModel = viewModel,
+            navController = navController
         )
-        Text(text = "Casts", color = Color.White, fontSize = 18.sp)
+        //Text(text = "Casts", color = Color.White, fontSize = 18.sp)
 
-        CastItem( cast = castState.value, modifier =modifier )
+        //CastItem( cast = castState.value, modifier =modifier )
 
 
 
