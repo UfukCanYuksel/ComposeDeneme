@@ -3,15 +3,21 @@ package com.turkoglu.composedeneme.presentation.viewall.view
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresExtension
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -20,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.turkoglu.composedeneme.domain.model.Movie
+import com.turkoglu.composedeneme.presentation.detail.view.CircularBackButtons
 import com.turkoglu.composedeneme.presentation.home.MovieListItem
 import com.turkoglu.composedeneme.presentation.viewall.ViewAllScreenViewModel
 
@@ -35,8 +42,19 @@ fun ViewAllScreen (
     val nameState = viewModel.nameState.value.movies
     val uniqueIds = mutableSetOf<Int>()
     Column {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .padding(horizontal = 10.dp)
+        ) {
+            CircularBackButtons(
+                onClick = { navController.popBackStack() })
 
-        Text(text = nameState, color = Color.White, fontSize = 18.sp)
+            Text(text = nameState, color = Color.White, fontSize = 28.sp)
+        }
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
