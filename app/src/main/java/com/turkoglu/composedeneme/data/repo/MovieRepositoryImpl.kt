@@ -26,9 +26,12 @@ import com.turkoglu.composedeneme.data.paging.PagingUpComingMoviesHome
 import com.turkoglu.composedeneme.data.paging.PagingWarMovies
 import com.turkoglu.composedeneme.data.paging.PagingWarMoviesHome
 import com.turkoglu.composedeneme.data.remote.MovieAPI
+import com.turkoglu.composedeneme.data.remote.dto.CreditsDto
 import com.turkoglu.composedeneme.data.remote.dto.MovieDetailDto
 import com.turkoglu.composedeneme.domain.model.Movie
+import com.turkoglu.composedeneme.util.Resource
 import kotlinx.coroutines.flow.Flow
+import java.io.IOException
 
 import javax.inject.Inject
 
@@ -77,9 +80,19 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
         ).flow
     }
 
-    suspend fun getMovieDetail(imdbId: String): MovieDetailDto {
-        return api.getMovieDetail(imdbId)
+    suspend fun getMovieDetail(movieId: Int): MovieDetailDto {
+        return api.getMovieDetail(movieId = movieId)
     }
+
+    suspend fun getMovieCasts(movieId : Int) : Resource<CreditsDto>{
+        val response = try {
+           api.getMovieCredits(movieId = movieId)
+        }catch (e: IOException){
+            return Resource.Error(message = "Unknown error occurred" )
+        }
+        return Resource.Success(response)
+    }
+
 
     fun getActionMovies(useIncreasingPage: Boolean): Flow<PagingData<Movie>> {
         return Pager(

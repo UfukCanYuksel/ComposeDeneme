@@ -1,5 +1,6 @@
 package com.turkoglu.composedeneme.data.remote
 
+import com.turkoglu.composedeneme.data.remote.dto.CreditsDto
 import com.turkoglu.composedeneme.data.remote.dto.MovieDetailDto
 import com.turkoglu.composedeneme.data.remote.dto.MoviesDto
 import com.turkoglu.composedeneme.util.Constants.API_KEY
@@ -12,7 +13,7 @@ interface MovieAPI {
 
     @GET("movie/{movieId}")
     suspend fun getMovieDetail(
-        @Path("movieId") movieId: String,
+        @Path("movieId") movieId: Int,
         @Query("api_key") apiKey: String = API_KEY
     ): MovieDetailDto
 
@@ -47,6 +48,12 @@ interface MovieAPI {
         @Query("with_genres") genre : Int ,
         @Query("page") page :Int= DEFAULT_PAGE
     ) : MoviesDto
+
+    @GET("movie/{movie_id}/credits")
+    suspend fun getMovieCredits(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = API_KEY
+    ): CreditsDto
 
 
 

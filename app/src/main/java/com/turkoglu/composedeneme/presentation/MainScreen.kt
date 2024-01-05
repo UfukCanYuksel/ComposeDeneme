@@ -54,14 +54,16 @@ fun MainScreen(
         }
     ) { innerPadding ->
         Box(
-            modifier = Modifier.padding(
-                PaddingValues(
-                    0.dp,
-                    0.dp,
-                    0.dp,
-                    innerPadding.calculateBottomPadding()
+            modifier = Modifier
+                .padding(
+                    PaddingValues(
+                        0.dp,
+                        0.dp,
+                        0.dp,
+                        innerPadding.calculateBottomPadding()
+                    )
                 )
-            ).background(MaterialTheme.colors.background)
+                .background(MaterialTheme.colors.background)
         ) {
             Navigations(navController = navController)
         }
@@ -130,10 +132,11 @@ fun Navigations(navController: NavHostController) {
             SettingsScreen()
         }
         composable(Screen.Detail.route,
-            arguments = listOf(navArgument("movieId") { type = NavType.StringType })
+            arguments = listOf(navArgument("movieId") { type = NavType.IntType })
         ) {
             DetailScreen(navController)
         }
+       
         composable(Screen.ViewAll.route,
             arguments = listOf(navArgument("selectedType") { type = NavType.StringType })
         ) {

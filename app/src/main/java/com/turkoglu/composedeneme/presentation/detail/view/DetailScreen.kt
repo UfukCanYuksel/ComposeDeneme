@@ -7,11 +7,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.turkoglu.composedeneme.presentation.detail.DetailScreenViewModel
@@ -26,6 +30,8 @@ fun DetailScreen(
 ) {
 
     val state = viewModel.state.value
+    val castState = viewModel.castState
+
 
     Column(modifier = modifier.fillMaxSize()) {
 
@@ -49,6 +55,11 @@ fun DetailScreen(
             rating = state.voteAverage.toFloat(),
             viewModel = viewModel
         )
+        Text(text = "Casts", color = Color.White, fontSize = 18.sp)
+
+        CastItem( cast = castState.value, modifier =modifier )
+
+
 
     }
 

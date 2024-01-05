@@ -1,5 +1,6 @@
 package com.turkoglu.composedeneme.domain.use_case
 
+
 import com.turkoglu.composedeneme.data.remote.dto.toMovie
 import com.turkoglu.composedeneme.data.repo.MovieRepositoryImpl
 import com.turkoglu.composedeneme.domain.model.MovieDetail
@@ -10,10 +11,10 @@ import java.io.IOException
 import javax.inject.Inject
 
 class GetMovieDetailUseCase @Inject constructor(private val repo: MovieRepositoryImpl) {
-    fun executeGetMovieDetail(imdbId : String) : Flow<Resource<MovieDetail>> = flow {
+    fun executeGetMovieDetail(movieId: Int) : Flow<Resource<MovieDetail>> = flow {
         try {
             emit(Resource.Loading())
-            val movieDetail = repo.getMovieDetail(imdbId)
+            val movieDetail = repo.getMovieDetail(movieId)
             emit(Resource.Success(movieDetail.toMovie()))
 
         }catch (e  : IOException){

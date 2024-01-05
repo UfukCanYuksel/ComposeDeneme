@@ -2,8 +2,6 @@ package com.turkoglu.composedeneme.presentation.home
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

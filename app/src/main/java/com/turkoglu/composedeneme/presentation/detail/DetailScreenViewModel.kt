@@ -7,7 +7,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.turkoglu.composedeneme.data.remote.dto.MovieDetailDto
 import com.turkoglu.composedeneme.data.repo.MovieRepositoryImpl
 import com.turkoglu.composedeneme.domain.use_case.GetMovieDetailUseCase
 import com.turkoglu.composedeneme.util.Resource
@@ -21,24 +20,33 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailScreenViewModel @Inject constructor(
     private val getDetailUseCase : GetMovieDetailUseCase,
+    private val repo : MovieRepositoryImpl ,
     private val savedStateHandle: SavedStateHandle
 ):ViewModel(){
     private val _state = mutableStateOf(DetailState())
     val state: State<DetailState> = _state
+    private val _castState = mutableStateOf(CastState())
+    val castState : State<CastState> = _castState
+
+
 
 
     init {
         getMovie()
+        getCast()
+
+
     }
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     private fun getMovie(){
-        val movieId = savedStateHandle.get<String>("movieId") ?: ""
-        getDetailUseCase.executeGetMovieDetail(movieId).onEach {
+        val movieId = savedStateHandle.get<Int>("movieId") ?: 0
+        getDetailUseCase.executeGetMovieDetail(movieId = movieId).onEach {  
             when (it) {
                 is Resource.Success -> {
                     _state.value= DetailState(title = it.data!!.title, overview = it.data.overview, genres = it.data.genres,
                         imdbId = it.data.imdbId, popularity = it.data.popularity, posterPath = it.data
                             .posterPath, releaseDate = it.data.releaseDate, revenue = it.data.revenue, voteAverage = it.data.voteAverage)
+
                 }
 
                 is Resource.Error -> {
@@ -53,5 +61,11 @@ class DetailScreenViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-
+   fun getCast(){
+       val movieId = savedStateHandle.get<Int>("movieId") ?: 0
+       viewModelScope.launch {
+           repo.getMovieCasts(movieId).data
+           println(repo.getMovieCasts(movieId).data)
+       }
+    }
 }
