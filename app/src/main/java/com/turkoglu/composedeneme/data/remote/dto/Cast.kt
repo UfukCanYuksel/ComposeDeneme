@@ -1,5 +1,9 @@
 package com.turkoglu.composedeneme.data.remote.dto
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Cast(
     val adult: Boolean,
     val gender: Int,
@@ -13,4 +17,4 @@ data class Cast(
     val character: String,
     val credit_id: String,
     val order: Int
-)
+): Parcelable
