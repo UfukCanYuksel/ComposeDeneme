@@ -35,7 +35,6 @@ class DetailScreenViewModel @Inject constructor(
         getMovie()
         getCast()
 
-
     }
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     private fun getMovie(){
@@ -64,8 +63,8 @@ class DetailScreenViewModel @Inject constructor(
    fun getCast(){
        val movieId = savedStateHandle.get<Int>("movieId") ?: 0
        viewModelScope.launch {
-           repo.getMovieCasts(movieId).data
-           println(repo.getMovieCasts(movieId).data)
+           val dto=repo.getMovieCasts(movieId).data
+           _castState.value = CastState(dto!!.cast,dto.id)
        }
     }
 }

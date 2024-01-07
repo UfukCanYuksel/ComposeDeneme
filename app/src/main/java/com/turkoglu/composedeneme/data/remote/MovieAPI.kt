@@ -54,16 +54,11 @@ interface MovieAPI {
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = API_KEY
     ): CreditsDto
-
-
-
-
-    /*
-      @GET(SEARCH_MOVIES)
+      @GET("search/movie")
     suspend fun getSearchMovies(
-        @Query("api_key") apiKey: String,
+        @Query("api_key") apiKey: String =API_KEY,
         @Query("query") query: String
-    ): MoviesModel
+    ): MoviesDto
 
-     */
+
 }

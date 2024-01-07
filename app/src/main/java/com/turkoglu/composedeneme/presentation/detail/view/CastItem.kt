@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -24,20 +25,21 @@ import com.turkoglu.composedeneme.presentation.detail.CastState
 
 @Composable
 fun CastItem(
-
-    cast: CastState,
     modifier : Modifier ,
+    castImageUrl :String ,
+    castName : String
 
 ) {
     Card(
         modifier = modifier
-            .height(220.dp)
+            .height(200.dp)
+            .width(120.dp)
             .padding(
                 start = 8.dp,
                 end = 8.dp,
                 top = 10.dp,
                 bottom = 10.dp),
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(40.dp),
 
         ) {
         Column {
@@ -46,25 +48,26 @@ fun CastItem(
                 contentAlignment = Alignment.Center,
             ) {
                 AsyncImage(
-                    model = cast.profile_path,
+                    model = castImageUrl,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = modifier
                         .fillMaxSize()
                         .clip(RoundedCornerShape(bottomStart = 2.dp, bottomEnd = 2.dp))
                 )
-                Column(
-                    modifier = modifier.padding(10.dp)
-                ){
-                    Text(
-                        text = cast.name,
-                        style = MaterialTheme.typography.subtitle1,
-                        fontWeight = FontWeight.Bold,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                    Spacer(modifier = modifier.height(4.dp))
-                }
+
+            }
+            Column(
+                modifier = modifier.padding(10.dp)
+            ){
+                Text(
+                    text = castName,
+                    style = MaterialTheme.typography.subtitle1,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Spacer(modifier = modifier.height(4.dp))
             }
         }
     }

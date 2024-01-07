@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.turkoglu.composedeneme.presentation.detail.CastState
 import com.turkoglu.composedeneme.presentation.detail.DetailScreenViewModel
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
@@ -31,37 +32,27 @@ fun DetailScreen(
 
     val state = viewModel.state.value
     val castState = viewModel.castState
-
+    println(castState.value.cast)
 
     Column(modifier = modifier.fillMaxSize()) {
-
         Text(text = state.title)
         Spacer(modifier = modifier.padding(20.dp))
         Text(text = state.overview)
-
-
     }
 
     val scrollState = rememberLazyListState()
 
     Box {
-
         FilmInfo(
             scrollState = scrollState,
             overview = state.overview,
-            releaseDate = state.releaseDate
+            releaseDate = state.releaseDate,
+            state = castState.value
         )
         FilmImageBanner(
             rating = state.voteAverage.toFloat(),
-            viewModel = viewModel
+            viewModel = viewModel,
+            navController = navController
         )
-        Text(text = "Casts", color = Color.White, fontSize = 18.sp)
-
-        CastItem( cast = castState.value, modifier =modifier )
-
-
-
     }
-
-
 }
