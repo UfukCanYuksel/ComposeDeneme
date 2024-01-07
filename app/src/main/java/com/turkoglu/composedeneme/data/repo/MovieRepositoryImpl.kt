@@ -28,6 +28,8 @@ import com.turkoglu.composedeneme.data.paging.PagingWarMoviesHome
 import com.turkoglu.composedeneme.data.remote.MovieAPI
 import com.turkoglu.composedeneme.data.remote.dto.CreditsDto
 import com.turkoglu.composedeneme.data.remote.dto.MovieDetailDto
+import com.turkoglu.composedeneme.data.remote.dto.MoviesDto
+import com.turkoglu.composedeneme.data.remote.dto.toMovieList
 import com.turkoglu.composedeneme.domain.model.Movie
 import com.turkoglu.composedeneme.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -89,6 +91,14 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
            api.getMovieCredits(movieId = movieId)
         }catch (e: IOException){
             return Resource.Error(message = "Unknown error occurred" )
+        }
+        return Resource.Success(response)
+    }
+    suspend fun getSearch(search : String) : Resource<List<Movie>>{
+        val response = try {
+            api.getSearchMovies(query = search).toMovieList()
+        }catch (e : Exception){
+            return Resource.Error(message = "Unknown error occurred")
         }
         return Resource.Success(response)
     }
@@ -170,6 +180,8 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI){
             }
         ).flow
     }
+
+
 
 
 }

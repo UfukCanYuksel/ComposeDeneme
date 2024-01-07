@@ -65,7 +65,6 @@ class DetailScreenViewModel @Inject constructor(
        viewModelScope.launch {
            val dto=repo.getMovieCasts(movieId).data
            _castState.value = CastState(dto!!.cast,dto.id)
-
        }
     }
 }
