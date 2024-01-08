@@ -102,7 +102,7 @@ fun FilmInfo(
                     )
                 }
                 LazyRow {
-                    itemsIndexed(state.cast, key = {_: Int ,cast : Cast -> cast.id}) {index,cast->
+                    itemsIndexed(state.cast, key = {_: Int ,cast : Cast -> cast.id}) { _, cast->
                         CastItem(
                             modifier = Modifier,
                             castImageUrl = "${Constants.IMAGE_BASE_URL}/${cast.profile_path}",

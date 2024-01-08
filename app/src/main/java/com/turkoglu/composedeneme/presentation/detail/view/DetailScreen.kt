@@ -20,28 +20,27 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.turkoglu.composedeneme.presentation.detail.CastState
 import com.turkoglu.composedeneme.presentation.detail.DetailScreenViewModel
+import com.turkoglu.composedeneme.presentation.fav.FavViewModel
+import com.turkoglu.composedeneme.util.Constants
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable()
 fun DetailScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: DetailScreenViewModel = hiltViewModel()
+    viewModel: DetailScreenViewModel = hiltViewModel(),
+    viewModelFav : FavViewModel =  hiltViewModel()
 
 ) {
-
+    val scrollState = rememberLazyListState()
     val state = viewModel.state.value
     val castState = viewModel.castState
-    println(castState.value.cast)
 
     Column(modifier = modifier.fillMaxSize()) {
         Text(text = state.title)
         Spacer(modifier = modifier.padding(20.dp))
         Text(text = state.overview)
     }
-
-    val scrollState = rememberLazyListState()
-
     Box {
         FilmInfo(
             scrollState = scrollState,
@@ -52,7 +51,12 @@ fun DetailScreen(
         FilmImageBanner(
             rating = state.voteAverage.toFloat(),
             viewModel = viewModel,
-            navController = navController
+            navController = navController,
+            viewModelFav = viewModelFav,
+            posterUrl = "${Constants.IMAGE_BASE_URL}/${viewModel.state.value.posterPath}",
+            filmName = viewModel.state.value.title,
+            filmId = viewModel.state.value.imdbId,
+            releaseDate = viewModel.state.value.releaseDate
         )
     }
 }

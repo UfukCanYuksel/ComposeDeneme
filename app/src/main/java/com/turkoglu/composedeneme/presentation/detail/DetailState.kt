@@ -4,7 +4,7 @@ import com.turkoglu.composedeneme.data.remote.dto.Genre
 
 data class DetailState (
     val genres: List<Genre> = emptyList(),
-    val imdbId: String ="",
+    val imdbId: Int = 0,
     val overview: String="",
     val popularity: Double=0.0,
     val posterPath: String ="",
