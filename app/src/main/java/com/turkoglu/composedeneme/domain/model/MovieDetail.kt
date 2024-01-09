@@ -6,7 +6,7 @@ data class MovieDetail(
     val adult: Boolean,
     val backdropPath: String,
     val genres: List<Genre>,
-    val imdbId: String,
+    val id: Int,
     val overview: String,
     val popularity: Double,
     val posterPath: String,

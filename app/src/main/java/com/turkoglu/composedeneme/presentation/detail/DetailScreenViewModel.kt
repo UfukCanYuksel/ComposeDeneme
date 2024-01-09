@@ -28,9 +28,6 @@ class DetailScreenViewModel @Inject constructor(
     private val _castState = mutableStateOf(CastState())
     val castState : State<CastState> = _castState
 
-
-
-
     init {
         getMovie()
         getCast()
@@ -43,7 +40,7 @@ class DetailScreenViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     _state.value= DetailState(title = it.data!!.title, overview = it.data.overview, genres = it.data.genres,
-                        imdbId = it.data.imdbId, popularity = it.data.popularity, posterPath = it.data
+                        imdbId = it.data.id, popularity = it.data.popularity, posterPath = it.data
                             .posterPath, releaseDate = it.data.releaseDate, revenue = it.data.revenue, voteAverage = it.data.voteAverage)
 
                 }

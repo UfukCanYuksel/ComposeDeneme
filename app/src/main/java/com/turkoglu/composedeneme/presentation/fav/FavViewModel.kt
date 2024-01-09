@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turkoglu.composedeneme.data.local.Favorite
 import com.turkoglu.composedeneme.data.repo.FavoritesRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class FavViewModel @Inject constructor(private val repo: FavoritesRepo) : ViewModel() {
     val favorites = repo.getFavorites()
 

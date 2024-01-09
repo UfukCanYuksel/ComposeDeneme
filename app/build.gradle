@@ -87,8 +87,9 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
 
-    def room_version = "2.4.2"
+    def room_version = "2.4.0"
     implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     // Coroutine Lifecycle Scopes
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
@@ -126,5 +127,6 @@ dependencies {
 
     implementation "eu.bambooapps:compose-material3-pullrefresh:1.0.1"
     implementation "androidx.paging:paging-compose:1.0.0-alpha14"
+
 
 }
